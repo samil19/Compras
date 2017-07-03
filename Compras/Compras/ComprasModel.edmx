@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ComprasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Articulos">
+          <Key>
+            <PropertyRef Name="ID_arti" />
+          </Key>
+          <Property Name="ID_arti" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Marca" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_med" Type="int" Nullable="false" />
+          <Property Name="Existencia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Articulos_Departamentos">
+          <Key>
+            <PropertyRef Name="ID_ardep" />
+          </Key>
+          <Property Name="ID_ardep" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_arti" Type="int" Nullable="false" />
+          <Property Name="ID_dp" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="ID_dp" />
+          </Key>
+          <Property Name="ID_dp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Direccion">
+          <Key>
+            <PropertyRef Name="ID_direccion" />
+          </Key>
+          <Property Name="ID_direccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Latitud" Type="float" Nullable="false" />
+          <Property Name="Longitud" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Identificacion">
+          <Key>
+            <PropertyRef Name="ID_ID" />
+          </Key>
+          <Property Name="ID_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero_ID" Type="bigint" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medidas">
+          <Key>
+            <PropertyRef Name="ID_med" />
+          </Key>
+          <Property Name="ID_med" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ordenes">
+          <Key>
+            <PropertyRef Name="Num_orden" />
+          </Key>
+          <Property Name="Num_orden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="ID_arti" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="ID_med" Type="int" Nullable="false" />
+          <Property Name="Unitario" Type="money" Nullable="false" />
+          <Property Name="Total" Type="money" Nullable="false" />
+          <Property Name="ID_prov" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proveedores">
+          <Key>
+            <PropertyRef Name="ID_prov" />
+          </Key>
+          <Property Name="ID_prov" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_ID" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="ID_Direccion" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Articulos__ID_ar__173876EA">
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="1" />
+          <End Role="Articulos_Departamentos" Type="Self.Articulos_Departamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="ID_arti" />
+            </Principal>
+            <Dependent Role="Articulos_Departamentos">
+              <PropertyRef Name="ID_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Articulos__ID_dp__182C9B23">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Articulos_Departamentos" Type="Self.Articulos_Departamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="ID_dp" />
+            </Principal>
+            <Dependent Role="Articulos_Departamentos">
+              <PropertyRef Name="ID_dp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Articulos__ID_me__145C0A3F">
+          <End Role="Medidas" Type="Self.Medidas" Multiplicity="1" />
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medidas">
+              <PropertyRef Name="ID_med" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="ID_med" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ordenes__ID_arti__1FCDBCEB">
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="ID_arti" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="ID_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ordenes__ID_med__20C1E124">
+          <End Role="Medidas" Type="Self.Medidas" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medidas">
+              <PropertyRef Name="ID_med" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="ID_med" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ordenes__ID_prov__21B6055D">
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedores">
+              <PropertyRef Name="ID_prov" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="ID_prov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proveedores_Direccion">
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="1" />
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direccion">
+              <PropertyRef Name="ID_direccion" />
+            </Principal>
+            <Dependent Role="Proveedores">
+              <PropertyRef Name="ID_Direccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proveedores_Identificacion">
+          <End Role="Identificacion" Type="Self.Identificacion" Multiplicity="1" />
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificacion">
+              <PropertyRef Name="ID_ID" />
+            </Principal>
+            <Dependent Role="Proveedores">
+              <PropertyRef Name="ID_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ComprasModelStoreContainer">
+          <EntitySet Name="Articulos" EntityType="Self.Articulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Articulos_Departamentos" EntityType="Self.Articulos_Departamentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Direccion" EntityType="Self.Direccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Identificacion" EntityType="Self.Identificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medidas" EntityType="Self.Medidas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ordenes" EntityType="Self.Ordenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Articulos__ID_ar__173876EA" Association="Self.FK__Articulos__ID_ar__173876EA">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="Articulos_Departamentos" EntitySet="Articulos_Departamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Articulos__ID_dp__182C9B23" Association="Self.FK__Articulos__ID_dp__182C9B23">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Articulos_Departamentos" EntitySet="Articulos_Departamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Articulos__ID_me__145C0A3F" Association="Self.FK__Articulos__ID_me__145C0A3F">
+            <End Role="Medidas" EntitySet="Medidas" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ordenes__ID_arti__1FCDBCEB" Association="Self.FK__Ordenes__ID_arti__1FCDBCEB">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ordenes__ID_med__20C1E124" Association="Self.FK__Ordenes__ID_med__20C1E124">
+            <End Role="Medidas" EntitySet="Medidas" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ordenes__ID_prov__21B6055D" Association="Self.FK__Ordenes__ID_prov__21B6055D">
+            <End Role="Proveedores" EntitySet="Proveedores" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proveedores_Direccion" Association="Self.FK_Proveedores_Direccion">
+            <End Role="Direccion" EntitySet="Direccion" />
+            <End Role="Proveedores" EntitySet="Proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proveedores_Identificacion" Association="Self.FK_Proveedores_Identificacion">
+            <End Role="Identificacion" EntitySet="Identificacion" />
+            <End Role="Proveedores" EntitySet="Proveedores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ComprasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="ID_arti" />
+          </Key>
+          <Property Name="ID_arti" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_med" Type="Int32" Nullable="false" />
+          <Property Name="Existencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articulos_Departamentos" Relationship="Self.FK__Articulos__ID_ar__173876EA" FromRole="Articulos" ToRole="Articulos_Departamentos" />
+          <NavigationProperty Name="Medida" Relationship="Self.FK__Articulos__ID_me__145C0A3F" FromRole="Articulos" ToRole="Medidas" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK__Ordenes__ID_arti__1FCDBCEB" FromRole="Articulos" ToRole="Ordenes" />
+        </EntityType>
+        <EntityType Name="Articulos_Departamentos">
+          <Key>
+            <PropertyRef Name="ID_ardep" />
+          </Key>
+          <Property Name="ID_ardep" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_arti" Type="Int32" Nullable="false" />
+          <Property Name="ID_dp" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articulo" Relationship="Self.FK__Articulos__ID_ar__173876EA" FromRole="Articulos_Departamentos" ToRole="Articulos" />
+          <NavigationProperty Name="Departamento" Relationship="Self.FK__Articulos__ID_dp__182C9B23" FromRole="Articulos_Departamentos" ToRole="Departamentos" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="ID_dp" />
+          </Key>
+          <Property Name="ID_dp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articulos_Departamentos" Relationship="Self.FK__Articulos__ID_dp__182C9B23" FromRole="Departamentos" ToRole="Articulos_Departamentos" />
+        </EntityType>
+        <EntityType Name="Direccion">
+          <Key>
+            <PropertyRef Name="ID_direccion" />
+          </Key>
+          <Property Name="ID_direccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Direccion1" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Latitud" Type="Double" Nullable="false" />
+          <Property Name="Longitud" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Proveedores" Relationship="Self.FK_Proveedores_Direccion" FromRole="Direccion" ToRole="Proveedores" />
+        </EntityType>
+        <EntityType Name="Identificacion">
+          <Key>
+            <PropertyRef Name="ID_ID" />
+          </Key>
+          <Property Name="ID_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero_ID" Type="Int64" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Proveedores" Relationship="Self.FK_Proveedores_Identificacion" FromRole="Identificacion" ToRole="Proveedores" />
+        </EntityType>
+        <EntityType Name="Medida">
+          <Key>
+            <PropertyRef Name="ID_med" />
+          </Key>
+          <Property Name="ID_med" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articulos" Relationship="Self.FK__Articulos__ID_me__145C0A3F" FromRole="Medidas" ToRole="Articulos" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK__Ordenes__ID_med__20C1E124" FromRole="Medidas" ToRole="Ordenes" />
+        </EntityType>
+        <EntityType Name="Ordene">
+          <Key>
+            <PropertyRef Name="Num_orden" />
+          </Key>
+          <Property Name="Num_orden" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="ID_arti" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="ID_med" Type="Int32" Nullable="false" />
+          <Property Name="Unitario" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ID_prov" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articulo" Relationship="Self.FK__Ordenes__ID_arti__1FCDBCEB" FromRole="Ordenes" ToRole="Articulos" />
+          <NavigationProperty Name="Medida" Relationship="Self.FK__Ordenes__ID_med__20C1E124" FromRole="Ordenes" ToRole="Medidas" />
+          <NavigationProperty Name="Proveedore" Relationship="Self.FK__Ordenes__ID_prov__21B6055D" FromRole="Ordenes" ToRole="Proveedores" />
+        </EntityType>
+        <EntityType Name="Proveedore">
+          <Key>
+            <PropertyRef Name="ID_prov" />
+          </Key>
+          <Property Name="ID_prov" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_ID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="ID_Direccion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Direccion" Relationship="Self.FK_Proveedores_Direccion" FromRole="Proveedores" ToRole="Direccion" />
+          <NavigationProperty Name="Identificacion" Relationship="Self.FK_Proveedores_Identificacion" FromRole="Proveedores" ToRole="Identificacion" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK__Ordenes__ID_prov__21B6055D" FromRole="Proveedores" ToRole="Ordenes" />
+        </EntityType>
+        <Association Name="FK__Articulos__ID_ar__173876EA">
+          <End Role="Articulos" Type="Self.Articulo" Multiplicity="1" />
+          <End Role="Articulos_Departamentos" Type="Self.Articulos_Departamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="ID_arti" />
+            </Principal>
+            <Dependent Role="Articulos_Departamentos">
+              <PropertyRef Name="ID_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Articulos__ID_me__145C0A3F">
+          <End Role="Medidas" Type="Self.Medida" Multiplicity="1" />
+          <End Role="Articulos" Type="Self.Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medidas">
+              <PropertyRef Name="ID_med" />
+            </Principal>
+            <Dependent Role="Articulos">
+              <PropertyRef Name="ID_med" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ordenes__ID_arti__1FCDBCEB">
+          <End Role="Articulos" Type="Self.Articulo" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordene" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="ID_arti" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="ID_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Articulos__ID_dp__182C9B23">
+          <End Role="Departamentos" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Articulos_Departamentos" Type="Self.Articulos_Departamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="ID_dp" />
+            </Principal>
+            <Dependent Role="Articulos_Departamentos">
+              <PropertyRef Name="ID_dp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proveedores_Direccion">
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="1" />
+          <End Role="Proveedores" Type="Self.Proveedore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direccion">
+              <PropertyRef Name="ID_direccion" />
+            </Principal>
+            <Dependent Role="Proveedores">
+              <PropertyRef Name="ID_Direccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proveedores_Identificacion">
+          <End Role="Identificacion" Type="Self.Identificacion" Multiplicity="1" />
+          <End Role="Proveedores" Type="Self.Proveedore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Identificacion">
+              <PropertyRef Name="ID_ID" />
+            </Principal>
+            <Dependent Role="Proveedores">
+              <PropertyRef Name="ID_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ordenes__ID_med__20C1E124">
+          <End Role="Medidas" Type="Self.Medida" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordene" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medidas">
+              <PropertyRef Name="ID_med" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="ID_med" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ordenes__ID_prov__21B6055D">
+          <End Role="Proveedores" Type="Self.Proveedore" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordene" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedores">
+              <PropertyRef Name="ID_prov" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="ID_prov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ComprasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articulos" EntityType="Self.Articulo" />
+          <EntitySet Name="Articulos_Departamentos" EntityType="Self.Articulos_Departamentos" />
+          <EntitySet Name="Departamentos" EntityType="Self.Departamento" />
+          <EntitySet Name="Direccions" EntityType="Self.Direccion" />
+          <EntitySet Name="Identificacions" EntityType="Self.Identificacion" />
+          <EntitySet Name="Medidas" EntityType="Self.Medida" />
+          <EntitySet Name="Ordenes" EntityType="Self.Ordene" />
+          <EntitySet Name="Proveedores" EntityType="Self.Proveedore" />
+          <AssociationSet Name="FK__Articulos__ID_ar__173876EA" Association="Self.FK__Articulos__ID_ar__173876EA">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="Articulos_Departamentos" EntitySet="Articulos_Departamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Articulos__ID_me__145C0A3F" Association="Self.FK__Articulos__ID_me__145C0A3F">
+            <End Role="Medidas" EntitySet="Medidas" />
+            <End Role="Articulos" EntitySet="Articulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ordenes__ID_arti__1FCDBCEB" Association="Self.FK__Ordenes__ID_arti__1FCDBCEB">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Articulos__ID_dp__182C9B23" Association="Self.FK__Articulos__ID_dp__182C9B23">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Articulos_Departamentos" EntitySet="Articulos_Departamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proveedores_Direccion" Association="Self.FK_Proveedores_Direccion">
+            <End Role="Direccion" EntitySet="Direccions" />
+            <End Role="Proveedores" EntitySet="Proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proveedores_Identificacion" Association="Self.FK_Proveedores_Identificacion">
+            <End Role="Identificacion" EntitySet="Identificacions" />
+            <End Role="Proveedores" EntitySet="Proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ordenes__ID_med__20C1E124" Association="Self.FK__Ordenes__ID_med__20C1E124">
+            <End Role="Medidas" EntitySet="Medidas" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ordenes__ID_prov__21B6055D" Association="Self.FK__Ordenes__ID_prov__21B6055D">
+            <End Role="Proveedores" EntitySet="Proveedores" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ComprasModelStoreContainer" CdmEntityContainer="ComprasEntities">
+          <EntitySetMapping Name="Articulos">
+            <EntityTypeMapping TypeName="ComprasModel.Articulo">
+              <MappingFragment StoreEntitySet="Articulos">
+                <ScalarProperty Name="ID_arti" ColumnName="ID_arti" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="ID_med" ColumnName="ID_med" />
+                <ScalarProperty Name="Existencia" ColumnName="Existencia" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Articulos_Departamentos">
+            <EntityTypeMapping TypeName="ComprasModel.Articulos_Departamentos">
+              <MappingFragment StoreEntitySet="Articulos_Departamentos">
+                <ScalarProperty Name="ID_ardep" ColumnName="ID_ardep" />
+                <ScalarProperty Name="ID_arti" ColumnName="ID_arti" />
+                <ScalarProperty Name="ID_dp" ColumnName="ID_dp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamentos">
+            <EntityTypeMapping TypeName="ComprasModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamentos">
+                <ScalarProperty Name="ID_dp" ColumnName="ID_dp" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Direccions">
+            <EntityTypeMapping TypeName="ComprasModel.Direccion">
+              <MappingFragment StoreEntitySet="Direccion">
+                <ScalarProperty Name="ID_direccion" ColumnName="ID_direccion" />
+                <ScalarProperty Name="Direccion1" ColumnName="Direccion" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Identificacions">
+            <EntityTypeMapping TypeName="ComprasModel.Identificacion">
+              <MappingFragment StoreEntitySet="Identificacion">
+                <ScalarProperty Name="ID_ID" ColumnName="ID_ID" />
+                <ScalarProperty Name="Numero_ID" ColumnName="Numero_ID" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medidas">
+            <EntityTypeMapping TypeName="ComprasModel.Medida">
+              <MappingFragment StoreEntitySet="Medidas">
+                <ScalarProperty Name="ID_med" ColumnName="ID_med" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ordenes">
+            <EntityTypeMapping TypeName="ComprasModel.Ordene">
+              <MappingFragment StoreEntitySet="Ordenes">
+                <ScalarProperty Name="Num_orden" ColumnName="Num_orden" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ID_arti" ColumnName="ID_arti" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="ID_med" ColumnName="ID_med" />
+                <ScalarProperty Name="Unitario" ColumnName="Unitario" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="ID_prov" ColumnName="ID_prov" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedores">
+            <EntityTypeMapping TypeName="ComprasModel.Proveedore">
+              <MappingFragment StoreEntitySet="Proveedores">
+                <ScalarProperty Name="ID_prov" ColumnName="ID_prov" />
+                <ScalarProperty Name="ID_ID" ColumnName="ID_ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ID_Direccion" ColumnName="ID_Direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

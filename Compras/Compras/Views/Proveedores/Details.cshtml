@@ -1,0 +1,50 @@
+﻿@model Compras.Proveedore
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Proveedore</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion.Direccion1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion.Direccion1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Identificacion.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Identificacion.Tipo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_prov }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

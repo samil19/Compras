@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ComprasModelStoreContainer" CdmEntityContainer="ComprasEntities">
+    <EntitySetMapping Name="Articulos">
+      <EntityTypeMapping TypeName="ComprasModel.Articulo">
+        <MappingFragment StoreEntitySet="Articulos">
+          <ScalarProperty Name="ID_arti" ColumnName="ID_arti" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="ID_med" ColumnName="ID_med" />
+          <ScalarProperty Name="Existencia" ColumnName="Existencia" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Articulos_Departamentos">
+      <EntityTypeMapping TypeName="ComprasModel.Articulos_Departamentos">
+        <MappingFragment StoreEntitySet="Articulos_Departamentos">
+          <ScalarProperty Name="ID_ardep" ColumnName="ID_ardep" />
+          <ScalarProperty Name="ID_arti" ColumnName="ID_arti" />
+          <ScalarProperty Name="ID_dp" ColumnName="ID_dp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departamentos">
+      <EntityTypeMapping TypeName="ComprasModel.Departamento">
+        <MappingFragment StoreEntitySet="Departamentos">
+          <ScalarProperty Name="ID_dp" ColumnName="ID_dp" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Direccions">
+      <EntityTypeMapping TypeName="ComprasModel.Direccion">
+        <MappingFragment StoreEntitySet="Direccion">
+          <ScalarProperty Name="ID_direccion" ColumnName="ID_direccion" />
+          <ScalarProperty Name="Direccion1" ColumnName="Direccion" />
+          <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+          <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Identificacions">
+      <EntityTypeMapping TypeName="ComprasModel.Identificacion">
+        <MappingFragment StoreEntitySet="Identificacion">
+          <ScalarProperty Name="ID_ID" ColumnName="ID_ID" />
+          <ScalarProperty Name="Numero_ID" ColumnName="Numero_ID" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medidas">
+      <EntityTypeMapping TypeName="ComprasModel.Medida">
+        <MappingFragment StoreEntitySet="Medidas">
+          <ScalarProperty Name="ID_med" ColumnName="ID_med" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ordenes">
+      <EntityTypeMapping TypeName="ComprasModel.Ordene">
+        <MappingFragment StoreEntitySet="Ordenes">
+          <ScalarProperty Name="Num_orden" ColumnName="Num_orden" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="ID_arti" ColumnName="ID_arti" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="ID_med" ColumnName="ID_med" />
+          <ScalarProperty Name="Unitario" ColumnName="Unitario" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="ID_prov" ColumnName="ID_prov" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedores">
+      <EntityTypeMapping TypeName="ComprasModel.Proveedore">
+        <MappingFragment StoreEntitySet="Proveedores">
+          <ScalarProperty Name="ID_prov" ColumnName="ID_prov" />
+          <ScalarProperty Name="ID_ID" ColumnName="ID_ID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="ID_Direccion" ColumnName="ID_Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

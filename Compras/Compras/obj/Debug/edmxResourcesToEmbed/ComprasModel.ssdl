@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ComprasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Articulos">
+    <Key>
+      <PropertyRef Name="ID_arti" />
+    </Key>
+    <Property Name="ID_arti" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Marca" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ID_med" Type="int" Nullable="false" />
+    <Property Name="Existencia" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Articulos_Departamentos">
+    <Key>
+      <PropertyRef Name="ID_ardep" />
+    </Key>
+    <Property Name="ID_ardep" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_arti" Type="int" Nullable="false" />
+    <Property Name="ID_dp" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Departamentos">
+    <Key>
+      <PropertyRef Name="ID_dp" />
+    </Key>
+    <Property Name="ID_dp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Direccion">
+    <Key>
+      <PropertyRef Name="ID_direccion" />
+    </Key>
+    <Property Name="ID_direccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Latitud" Type="float" Nullable="false" />
+    <Property Name="Longitud" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Identificacion">
+    <Key>
+      <PropertyRef Name="ID_ID" />
+    </Key>
+    <Property Name="ID_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Numero_ID" Type="bigint" Nullable="false" />
+    <Property Name="Tipo" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medidas">
+    <Key>
+      <PropertyRef Name="ID_med" />
+    </Key>
+    <Property Name="ID_med" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ordenes">
+    <Key>
+      <PropertyRef Name="Num_orden" />
+    </Key>
+    <Property Name="Num_orden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="ID_arti" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="ID_med" Type="int" Nullable="false" />
+    <Property Name="Unitario" Type="money" Nullable="false" />
+    <Property Name="Total" Type="money" Nullable="false" />
+    <Property Name="ID_prov" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proveedores">
+    <Key>
+      <PropertyRef Name="ID_prov" />
+    </Key>
+    <Property Name="ID_prov" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_ID" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="ID_Direccion" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Articulos__ID_ar__173876EA">
+    <End Role="Articulos" Type="Self.Articulos" Multiplicity="1" />
+    <End Role="Articulos_Departamentos" Type="Self.Articulos_Departamentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulos">
+        <PropertyRef Name="ID_arti" />
+      </Principal>
+      <Dependent Role="Articulos_Departamentos">
+        <PropertyRef Name="ID_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Articulos__ID_dp__182C9B23">
+    <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+    <End Role="Articulos_Departamentos" Type="Self.Articulos_Departamentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamentos">
+        <PropertyRef Name="ID_dp" />
+      </Principal>
+      <Dependent Role="Articulos_Departamentos">
+        <PropertyRef Name="ID_dp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Articulos__ID_me__145C0A3F">
+    <End Role="Medidas" Type="Self.Medidas" Multiplicity="1" />
+    <End Role="Articulos" Type="Self.Articulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medidas">
+        <PropertyRef Name="ID_med" />
+      </Principal>
+      <Dependent Role="Articulos">
+        <PropertyRef Name="ID_med" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ordenes__ID_arti__1FCDBCEB">
+    <End Role="Articulos" Type="Self.Articulos" Multiplicity="1" />
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articulos">
+        <PropertyRef Name="ID_arti" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="ID_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ordenes__ID_med__20C1E124">
+    <End Role="Medidas" Type="Self.Medidas" Multiplicity="1" />
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medidas">
+        <PropertyRef Name="ID_med" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="ID_med" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ordenes__ID_prov__21B6055D">
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="1" />
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedores">
+        <PropertyRef Name="ID_prov" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="ID_prov" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proveedores_Direccion">
+    <End Role="Direccion" Type="Self.Direccion" Multiplicity="1" />
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Direccion">
+        <PropertyRef Name="ID_direccion" />
+      </Principal>
+      <Dependent Role="Proveedores">
+        <PropertyRef Name="ID_Direccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proveedores_Identificacion">
+    <End Role="Identificacion" Type="Self.Identificacion" Multiplicity="1" />
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Identificacion">
+        <PropertyRef Name="ID_ID" />
+      </Principal>
+      <Dependent Role="Proveedores">
+        <PropertyRef Name="ID_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ComprasModelStoreContainer">
+    <EntitySet Name="Articulos" EntityType="Self.Articulos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Articulos_Departamentos" EntityType="Self.Articulos_Departamentos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Direccion" EntityType="Self.Direccion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Identificacion" EntityType="Self.Identificacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medidas" EntityType="Self.Medidas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ordenes" EntityType="Self.Ordenes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Articulos__ID_ar__173876EA" Association="Self.FK__Articulos__ID_ar__173876EA">
+      <End Role="Articulos" EntitySet="Articulos" />
+      <End Role="Articulos_Departamentos" EntitySet="Articulos_Departamentos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Articulos__ID_dp__182C9B23" Association="Self.FK__Articulos__ID_dp__182C9B23">
+      <End Role="Departamentos" EntitySet="Departamentos" />
+      <End Role="Articulos_Departamentos" EntitySet="Articulos_Departamentos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Articulos__ID_me__145C0A3F" Association="Self.FK__Articulos__ID_me__145C0A3F">
+      <End Role="Medidas" EntitySet="Medidas" />
+      <End Role="Articulos" EntitySet="Articulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ordenes__ID_arti__1FCDBCEB" Association="Self.FK__Ordenes__ID_arti__1FCDBCEB">
+      <End Role="Articulos" EntitySet="Articulos" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ordenes__ID_med__20C1E124" Association="Self.FK__Ordenes__ID_med__20C1E124">
+      <End Role="Medidas" EntitySet="Medidas" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ordenes__ID_prov__21B6055D" Association="Self.FK__Ordenes__ID_prov__21B6055D">
+      <End Role="Proveedores" EntitySet="Proveedores" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proveedores_Direccion" Association="Self.FK_Proveedores_Direccion">
+      <End Role="Direccion" EntitySet="Direccion" />
+      <End Role="Proveedores" EntitySet="Proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proveedores_Identificacion" Association="Self.FK_Proveedores_Identificacion">
+      <End Role="Identificacion" EntitySet="Identificacion" />
+      <End Role="Proveedores" EntitySet="Proveedores" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
